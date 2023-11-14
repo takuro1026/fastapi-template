@@ -16,4 +16,4 @@ async def hello_post(
     service: HelloService = Depends(HelloService),
     x_request_id: Annotated[str | None, Header(include_in_schema=True)] = None
 ):
-    return service.hello(req)
+    return service.hello(x_request_id, req)
