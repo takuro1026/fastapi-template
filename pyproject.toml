@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "fastapi-template"
+version = "0.1.0"
+description = "This is a service template baseed on FastAPI"
+authors = ["Takuro Huang"]
+readme = "README.md"
+packages = [{include = "fastapi_template"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.1"
+pydantic-settings = "^2.1.0"
+gunicorn = "^21.2.0"
+uvicorn = "^0.24.0"
+toml = "^0.10.2"
+pyyaml = "^6.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
