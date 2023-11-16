@@ -7,6 +7,15 @@ However, feel free to explore it if it suits your needs.
 1. Utilize Python 3.11 (Feel free to adjust the version as per your requirements).
 2. Make sure you have installed [pip](https://pip.pypa.io/en/stable/) or [poetry](https://python-poetry.org/)
 
+## How to config
+1. Please duplicate ``.env-example`` file and rename it to ``.env`` and modify it accordingly. 
+2. There is ``settings.env`` under ``app/configs/.`` It's the service configuration file. Please modify it based on your needs.
+
+## Export package info to requirements.txt from pyproject.toml before you run
+```
+poetry export -f requirements.txt --output requirements.txt
+```
+
 ## Run for Dev
 1. Clone this repo through following command
     ```
@@ -27,7 +36,7 @@ However, feel free to explore it if it suits your needs.
     ```
 4. You can find API docs at [http://localhost:8000/docs](http://localhost:8000/docs)
 
-## Export package info to requirements.txt from pyproject.toml
+## Run with Docker
 ```
-poetry export -f requirements.txt --output requirements.txt
+docker compose up -d
 ```
