@@ -60,7 +60,6 @@ log_data = {
     "errorlog": errorlog,
     "accesslog": accesslog,
     # Additional, non-gunicorn variables
-    "worker_class": "uvicorn.workers.UvicornWorker",
     "workers_per_core": workers_per_core,
     "use_max_workers": use_max_workers,
     "host": host,

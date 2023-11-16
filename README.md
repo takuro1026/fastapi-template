@@ -23,7 +23,7 @@ However, feel free to explore it if it suits your needs.
     ```
 3. Run the service locally
     ```
-    uvicorn app.main:app --reload --log-config=./app/config/log_config.yaml
+    uvicorn app.main:app --reload
     ```
 4. You can find API docs at [http://localhost:8000/docs](http://localhost:8000/docs)
 
