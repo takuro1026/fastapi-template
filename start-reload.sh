@@ -1,4 +1,3 @@
-# Reference: https://github.com/tiangolo/uvicorn-gunicorn-docker/tree/master
 #! /usr/bin/env sh
 set -e
 
