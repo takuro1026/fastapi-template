@@ -1,6 +1,12 @@
+from fastapi import APIRouter
+
 from app.dto.hello_req import HelloReq
 from app.dto.hello_resp import HelloResp
 
+router = APIRouter(
+    tags=["Service"],
+    prefix="/v1"
+)
 
 class HelloService:
 

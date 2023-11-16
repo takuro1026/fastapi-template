@@ -1,3 +1,6 @@
+import logging
+
+import yaml
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError, HTTPException
 from starlette.middleware.cors import CORSMiddleware
@@ -29,7 +32,9 @@ app.include_router(v1_router.router, prefix="/api")
 
 @app.on_event("startup")
 async def startup():
-    pass
+    with open('app/configs/log_config.yaml') as f:
+        config = yaml.load(f, Loader=yaml.FullLoader)
+        logging.config.dictConfig(config)
 
 
 @app.on_event("shutdown")
