@@ -47,15 +47,15 @@ class ExceptionHandler:
         This middleware will log all unhandled exceptions.
         Unhandled exceptions are all exceptions that are not HTTPExceptions or RequestValidationErrors.
         """
-        host = getattr(getattr(request, "client", None), "host", None)
-        port = getattr(getattr(request, "client", None), "port", None)
-        url = f"{request.url.path}?{request.query_params}" if request.query_params else request.url.path
+        host = getattr(getattr(request, 'client', None), 'host', None)
+        port = getattr(getattr(request, 'client', None), 'port', None)
+        url = f'{request.url.path}?{request.query_params}' if request.query_params else request.url.path
         exception_type, exception_value, exception_traceback = sys.exc_info()
-        exception_name = getattr(exception_type, "__name__", None)
+        exception_name = getattr(exception_type, '__name__', None)
         logger.error(
             f'{host}:{port} - "{request.method} {url}" 500 Internal Server Error <{exception_name}: {exception_value}>'
         )
         return JSONResponse(
-            content={"detail": str(exc)},
+            content={'detail': str(exc)},
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR
         )

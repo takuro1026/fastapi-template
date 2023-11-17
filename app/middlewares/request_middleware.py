@@ -39,15 +39,15 @@ class RequestMiddleware(BaseHTTPMiddleware):
         response_headers: List[Dict[str, str]] = []
 
         async def send(message: Message) -> None:
-            if message["type"] == "http.response.start":
-                response_status.append(message["status"])
-                response_headers.append({k.decode("utf8"): v.decode("utf8") for k, v in message["headers"]})
+            if message['type'] == 'http.response.start':
+                response_status.append(message['status'])
+                response_headers.append({k.decode('utf8'): v.decode('utf8') for k, v in message['headers']})
             else:
-                response_byte_chunks.append(message["body"])
+                response_byte_chunks.append(message['body'])
 
         await response.stream_response(send)
 
-        content = b"".join(response_byte_chunks)
+        content = b''.join(response_byte_chunks)
 
         return content, response_headers[0], response_status[0]
 
@@ -61,15 +61,15 @@ class RequestMiddleware(BaseHTTPMiddleware):
         E.g. log:
         0.0.0.0:1234 - GET /ping 200 OK 1.00ms
         """
-        url = f"{request.url.path}?{request.query_params}" if request.query_params else request.url.path
+        url = f'{request.url.path}?{request.query_params}' if request.query_params else request.url.path
 
         headers = dict(request.scope['headers'])
 
-        request_id = headers.get(b"x-request-id")
+        request_id = headers.get(b'x-request-id')
 
         if not request_id:
             request_id = str(uuid.uuid4())
-            headers[b"x-request-id"] = bytes(request_id, "utf-8")
+            headers[b'x-request-id'] = bytes(request_id, 'utf-8')
         else:
             request_id = str(request_id, 'UTF-8')
 
@@ -82,13 +82,13 @@ class RequestMiddleware(BaseHTTPMiddleware):
         start_time = time.time()
         response = await call_next(request)
         process_time = time.time() - start_time
-        formatted_process_time = "{0:.2f}".format(process_time)
+        formatted_process_time = '{0:.2f}'.format(process_time)
 
-        response.headers["x-process-time"] = formatted_process_time
-        response.headers["x-request-id"] = request_id
+        response.headers['x-process-time'] = formatted_process_time
+        response.headers['x-request-id'] = request_id
 
-        host = getattr(getattr(request, "client", None), "host", None)
-        port = getattr(getattr(request, "client", None), "port", None)
+        host = getattr(getattr(request, 'client', None), 'host', None)
+        port = getattr(getattr(request, 'client', None), 'port', None)
 
         response_content_bytes, response_headers, response_status = await self._get_response_params(response)
 
@@ -96,21 +96,21 @@ class RequestMiddleware(BaseHTTPMiddleware):
         try:
             request_body = json.loads(request_body)
         except JSONDecodeError:
-            request_body = ""
+            request_body = ''
 
         try:
             response_body = json.loads(response_content_bytes)
         except JSONDecodeError:
-            response_body = ""
+            response_body = ''
 
         try:
             status_phrase = http.HTTPStatus(response.status_code).phrase
         except ValueError:
-            status_phrase = ""
+            status_phrase = ''
 
         info = json.dumps({
-            "request_body": request_body,
-            "response_body": response_body
+            'request_body': request_body,
+            'response_body': response_body
         })
 
         logger.info(
@@ -123,7 +123,7 @@ class RequestMiddleware(BaseHTTPMiddleware):
         return Response(response_content_bytes, response_status, response_headers)
 
     async def dispatch(self, request, call_next: Callable[[Request], Awaitable[StreamingResponse]]):
-        if request.url.path.startswith("/api"):
+        if request.url.path.startswith('/api'):
             return await self.request_and_response_log_process(request, call_next)
         else:
             response = await call_next(request)

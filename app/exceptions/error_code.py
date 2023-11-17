@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 
 class ErrorCode(Enum):
-    BAD_REQUEST = HTTPStatus.BAD_REQUEST, "BAD_REQUEST", "the request is invalid"
+    BAD_REQUEST = HTTPStatus.BAD_REQUEST, 'BAD_REQUEST', 'the request is invalid'
 
     def __init__(self, status_code: HTTPStatus, error: str, detail: str):
         self.status_code = status_code

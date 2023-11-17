@@ -14,10 +14,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=['*'],
     allow_credentials=False,
-    allow_methods=["POST", "GET"],
-    allow_headers=["*"],
+    allow_methods=['POST', 'GET'],
+    allow_headers=['*'],
 )
 
 app.add_middleware(RequestMiddleware)
@@ -26,17 +26,17 @@ app.add_exception_handler(HTTPException, ExceptionHandler.http_request_exception
 app.add_exception_handler(ServiceException, ExceptionHandler.service_exception_handler)
 app.add_exception_handler(Exception, ExceptionHandler.unhandled_exception_handler)
 
-app.include_router(v1_router.router, prefix="/api")
+app.include_router(v1_router.router, prefix='/api')
 
 
 
-@app.on_event("startup")
+@app.on_event('startup')
 async def startup():
     with open('app/configs/log_config.yaml') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
         logging.config.dictConfig(config)
 
 
-@app.on_event("shutdown")
+@app.on_event('shutdown')
 async def shutdown():
     pass

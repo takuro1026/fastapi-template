@@ -11,4 +11,4 @@ class Settings(BaseSettings):
     SOMETHING_PATH: str
 
 
-    model_config = SettingsConfigDict(env_file="./app/config/settings.env")
+    model_config = SettingsConfigDict(env_file='./app/config/settings.env')

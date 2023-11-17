@@ -6,11 +6,11 @@ from app.dto.hello_req import HelloReq
 from app.services.hello_service import HelloService
 
 router = APIRouter(
-    tags=["Service"],
-    prefix="/v1"
+    tags=['Service'],
+    prefix='/v1'
 )
 
-@router.post("/hello")
+@router.post('/hello')
 async def hello_post(
     req: HelloReq,
     service: HelloService = Depends(HelloService),
