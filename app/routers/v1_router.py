@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Header
 
 from app.dto.hello_req import HelloReq
 from app.services.hello_service import HelloService
+from app.utils.utils import time_fn, async_time_fn
 
 router = APIRouter(
     tags=['Service'],
@@ -11,6 +12,7 @@ router = APIRouter(
 )
 
 @router.post('/hello')
+@async_time_fn
 async def hello_post(
     req: HelloReq,
     service: HelloService = Depends(HelloService),
