@@ -114,6 +114,7 @@ class RequestMiddleware(BaseHTTPMiddleware):
         })
 
         logger.info(
+            f'header: {headers} '
             f'{host}:{port} - "{request.method} {url}" '
             f'request_id: {request_id} - '
             f'{response.status_code} {status_phrase} {formatted_process_time}s '
